@@ -39,6 +39,11 @@ void cadastrar_cartas(){
             scanf("%f", &pib); // Solicita ao usuário que insira o PIB.
             printf("Número de pontos turísticos: "); // Mensagem
             scanf("%d", &pontos_turisticos); // Solicita ao usuário que insira os pontos turisticos.
+            float densidade = populacao / area;
+            printf("Densidade Populacional: %.2f\n", densidade);
+            float pib_per_capita = pib / populacao;
+            printf("PIB per Capita: %.2f\n", pib_per_capita);
+
 
             // Escrever no arquivo
             fprintf(arquivo, "Carta: %s\n", carta);
@@ -46,6 +51,8 @@ void cadastrar_cartas(){
             fprintf(arquivo, "Área: %.2f\n", area);
             fprintf(arquivo, "PIB: %.2f\n", pib);
             fprintf(arquivo, "Número de pontos turísticos: %d\n\n", pontos_turisticos);
+            fprintf(arquivo, "Densidade Populacional: %.2f\n", densidade);
+            fprintf(arquivo, "PIB per Capita: %.2f\n", pib_per_capita);
         }
     }
 
