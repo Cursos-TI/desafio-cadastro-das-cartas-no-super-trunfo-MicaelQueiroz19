@@ -43,6 +43,8 @@ void cadastrar_cartas(){
             printf("Densidade Populacional: %.2f\n", densidade);
             float pib_per_capita = pib / populacao;
             printf("PIB per Capita: %.2f\n", pib_per_capita);
+            double super_poder = populacao + area + pib + pontos_turisticos + densidade + pib_per_capita;
+            printf("Super Poder: %.2f\n", super_poder);
 
 
             // Escrever no arquivo
@@ -50,14 +52,15 @@ void cadastrar_cartas(){
             fprintf(arquivo, "População: %d\n", populacao);
             fprintf(arquivo, "Área: %.2f\n", area);
             fprintf(arquivo, "PIB: %.2f\n", pib);
-            fprintf(arquivo, "Número de pontos turísticos: %d\n\n", pontos_turisticos);
+            fprintf(arquivo, "Número de pontos turísticos: %d\n", pontos_turisticos);
             fprintf(arquivo, "Densidade Populacional: %.2f\n", densidade);
             fprintf(arquivo, "PIB per Capita: %.2f\n", pib_per_capita);
+            fprintf(arquivo, "Super Poder:: %.2f\n\n", super_poder);
         }
     }
 
     fclose(arquivo);
-    printf("Cartas Salvas!\n\n");
+    printf("\nCartas Salvas!\n");
 }
 
 // Exibição dos Dados das Cartas:
