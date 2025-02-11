@@ -12,7 +12,7 @@
 int populacao, pontos_turisticos;
 float area, pib;
 char carta[4];
-char estados[3] = {'A','B'};
+char estados[3] = {'A','B','C','D','E','F','G','H'};
 
 
 // Cadastro das Cartas:
@@ -55,7 +55,7 @@ void cadastrar_cartas(){
             fprintf(arquivo, "Número de pontos turísticos: %d\n", pontos_turisticos);
             fprintf(arquivo, "Densidade Populacional: %.2f\n", densidade);
             fprintf(arquivo, "PIB per Capita: %.2f\n", pib_per_capita);
-            fprintf(arquivo, "Super Poder:: %.2f\n\n", super_poder);
+            fprintf(arquivo, "Super Poder: %.2f\n\n", super_poder);
         }
     }
 
@@ -81,39 +81,150 @@ void consultar_cartas(){
     }
     
 }
-void jogar_cartas(){
-    char primeira_carta[4]; 
-    char segunda_carta[4];
+
+
+
+#define MAX_LINHA 100
+
+void jogar_cartas() {
+    char primeira_carta[4], segunda_carta[4];
 
     printf("Vamos começar o jogo!\n");
     printf("Selecione a primeira carta (Ex: A01): ");
-    scanf("%s", primeira_carta);
+    scanf("%3s", primeira_carta);
     printf("Selecione a segunda carta (Ex: B01): ");
-    scanf("%s", segunda_carta);
-
-    #define MAX_LINHA 100
-    char busca[MAX_LINHA];
-    char linha[MAX_LINHA];
+    scanf("%3s", segunda_carta);
 
     FILE *arquivo = fopen("dados.txt", "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo!\n");
+        return;
     }
-    sprintf(busca, "Carta: %s", primeira_carta);
-    // Contador de linhas
-    int linha_num = 0;
-    // Procura a carta no .txt.
+
+    char linha[MAX_LINHA];
+    int encontrou_primeira = 0, encontrou_segunda = 0;
+
+    // Inicializando os valores
+    int populacao_carta1 = -1, populacao_carta2 = -1;
+    float area_carta1 = -1.0, area_carta2 = -1.0;
+    float pib_carta1 = -1.0, pib_carta2 = -1.0;
+    int pontos_turisticos_carta1 = -1, pontos_turisticos_carta2 = -1;
+    float densidade_carta1 = -1.0, densidade_carta2 = -1.0;
+    float per_capita_carta1 = -1.0, per_capita_carta2 = -1.0;
+    float super_poder_carta1 = -1.0, super_poder_carta2 = -1.0;
+
+    // Percorrendo o arquivo apenas uma vez
     while (fgets(linha, MAX_LINHA, arquivo)) {
-        linha_num++; // Incrementa o número da linha a cada iteração
-        if (strstr(linha, busca) != NULL) {
-            printf("Carta encontrada na linha %d: %s", linha_num, linha);
+        if (strstr(linha, "Carta:") != NULL) {
+            char carta_atual[4];
+            sscanf(linha, "Carta: %s", carta_atual);
+
+            // Verifica se encontrou uma das cartas
+            if (strcmp(carta_atual, primeira_carta) == 0) {
+                encontrou_primeira = 1;
+            } else if (strcmp(carta_atual, segunda_carta) == 0) {
+                encontrou_segunda = 1;
+            } else {
+                // Se encontrou uma nova carta, termina a coleta dos dados anteriores
+                encontrou_primeira = 0;
+                encontrou_segunda = 0;
+            }
         }
 
+        // Coleta os dados da carta encontrada
+        if (encontrou_primeira || encontrou_segunda) {
+            int *populacao = encontrou_primeira ? &populacao_carta1 : &populacao_carta2;
+            float *area = encontrou_primeira ? &area_carta1 : &area_carta2;
+            float *pib = encontrou_primeira ? &pib_carta1 : &pib_carta2;
+            int *pontos_turisticos = encontrou_primeira ? &pontos_turisticos_carta1 : &pontos_turisticos_carta2;
+            float *densidade = encontrou_primeira ? &densidade_carta1 : &densidade_carta2;
+            float *per_capita = encontrou_primeira ? &per_capita_carta1 : &per_capita_carta2;
+            float *super_poder = encontrou_primeira ? &super_poder_carta1 : &super_poder_carta2;
+
+            if (sscanf(linha, "População: %d", populacao) == 1) {}
+            else if (sscanf(linha, "Área: %f", area) == 1) {}
+            else if (sscanf(linha, "PIB: %f", pib) == 1) {}
+            else if (sscanf(linha, "Número de pontos turísticos: %d", pontos_turisticos) == 1) {}
+            else if (sscanf(linha, "Densidade Populacional: %f", densidade) == 1) {}
+            else if (sscanf(linha, "PIB per Capita: %f", per_capita) == 1) {}
+            else if (sscanf(linha, "Super Poder: %f", super_poder) == 1) {}
+        }
     }
 
     fclose(arquivo);
 
+    // Exibir os valores das cartas lidas
+    printf("\n--- Comparação de Cartas (%s e %s) ---\n", primeira_carta, segunda_carta);
+    printf("População: %d vs %d\n", populacao_carta1, populacao_carta2);
+    printf("Área: %.2f vs %.2f\n", area_carta1, area_carta2);
+    printf("PIB: %.2f vs %.2f\n", pib_carta1, pib_carta2);
+    printf("Pontos turísticos: %d vs %d\n", pontos_turisticos_carta1, pontos_turisticos_carta2);
+    printf("Densidade Populacional: %.2f vs %.2f\n", densidade_carta1, densidade_carta2);
+    printf("PIB per Capita: %.2f vs %.2f\n", per_capita_carta1, per_capita_carta2);
+    printf("Super Poder: %.2f vs %.2f\n\n", super_poder_carta1, super_poder_carta2);
 
+    // Comparação de População (Maior valor vence)
+    if (populacao_carta1 > populacao_carta2) {
+        printf("\nA primeira carta (%s) vence em População!\n", primeira_carta);
+    } else if (populacao_carta1 < populacao_carta2) {
+        printf("A segunda carta (%s) vence em População!\n", segunda_carta);
+    } else {
+        printf("Empate em População!\n");
+    }
+
+    // Comparação de Área (Maior valor vence)
+    if (area_carta1 > area_carta2) {
+        printf("A primeira carta (%s) vence em Área!\n", primeira_carta);
+    } else if (area_carta1 < area_carta2) {
+        printf("A segunda carta (%s) vence em Área!\n", segunda_carta);
+    } else {
+        printf("Empate em Área!\n");
+    }
+
+    // Comparação de PIB (Maior valor vence)
+    if (pib_carta1 > pib_carta2) {
+        printf("A primeira carta (%s) vence em PIB!\n", primeira_carta);
+    } else if (pib_carta1 < pib_carta2) {
+        printf("A segunda carta (%s) vence em PIB!\n", segunda_carta);
+    } else {
+        printf("Empate em PIB!\n");
+    }
+
+    // Comparação de Pontos Turísticos (Maior valor vence)
+    if (pontos_turisticos_carta1 > pontos_turisticos_carta2) {
+        printf("A primeira carta (%s) vence em Pontos Turísticos!\n", primeira_carta);
+    } else if (pontos_turisticos_carta1 < pontos_turisticos_carta2) {
+        printf("A segunda carta (%s) vence em Pontos Turísticos!\n", segunda_carta);
+    } else {
+        printf("Empate em Pontos Turísticos!\n");
+    }
+
+    // Comparação de Densidade Populacional (Menor valor vence)
+    if (densidade_carta1 < densidade_carta2) {
+        printf("A primeira carta (%s) vence em Densidade Populacional!\n", primeira_carta);
+    } else if (densidade_carta1 > densidade_carta2) {
+        printf("A segunda carta (%s) vence em Densidade Populacional!\n", segunda_carta);
+    } else {
+        printf("Empate em Densidade Populacional!\n");
+    }
+
+    // Comparação de PIB per Capita (Maior valor vence)
+    if (per_capita_carta1 > per_capita_carta2) {
+        printf("A primeira carta (%s) vence em PIB per Capita!\n", primeira_carta);
+    } else if (per_capita_carta1 < per_capita_carta2) {
+        printf("A segunda carta (%s) vence em PIB per Capita!\n", segunda_carta);
+    } else {
+        printf("Empate em PIB per Capita!\n");
+    }
+
+    // Comparação de Super Poder (Maior valor vence)
+    if (super_poder_carta1 > super_poder_carta2) {
+        printf("A primeira carta (%s) vence em Super Poder!\n", primeira_carta);
+    } else if (super_poder_carta1 < super_poder_carta2) {
+        printf("A segunda carta (%s) vence em Super Poder!\n", segunda_carta);
+    } else {
+        printf("Empate em Super Poder!\n");
+    }
 }
 
 int main() {
