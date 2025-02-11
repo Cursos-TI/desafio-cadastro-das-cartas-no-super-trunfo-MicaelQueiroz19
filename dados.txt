@@ -1,0 +1,72 @@
+Carta: A01
+População: 1273
+Área: 132.00
+PIB: 32.00
+Número de pontos turísticos: 32
+Densidade Populacional: 9.64
+PIB per Capita: 0.03
+Super Poder:: 1478.67
+
+Carta: A02
+População: 1231
+Área: 231.00
+PIB: 23.00
+Número de pontos turísticos: 12
+Densidade Populacional: 5.33
+PIB per Capita: 0.02
+Super Poder:: 1502.35
+
+Carta: A03
+População: 3
+Área: 12.00
+PIB: 3.00
+Número de pontos turísticos: 213
+Densidade Populacional: 0.25
+PIB per Capita: 1.00
+Super Poder:: 232.25
+
+Carta: A04
+População: 12
+Área: 3.00
+PIB: 12.00
+Número de pontos turísticos: 3
+Densidade Populacional: 4.00
+PIB per Capita: 1.00
+Super Poder:: 35.00
+
+Carta: B01
+População: 21
+Área: 3.00
+PIB: 213.00
+Número de pontos turísticos: 12
+Densidade Populacional: 7.00
+PIB per Capita: 10.14
+Super Poder:: 266.14
+
+Carta: B02
+População: 3
+Área: 12.00
+PIB: 3.00
+Número de pontos turísticos: 213
+Densidade Populacional: 0.25
+PIB per Capita: 1.00
+Super Poder:: 232.25
+
+Carta: B03
+População: 12
+Área: 3.00
+PIB: 12.00
+Número de pontos turísticos: 3
+Densidade Populacional: 4.00
+PIB per Capita: 1.00
+Super Poder:: 35.00
+
+Carta: B04
+População: 213
+Área: 231.00
+PIB: 1.00
+Número de pontos turísticos: 231
+Densidade Populacional: 0.92
+PIB per Capita: 0.00
+Super Poder:: 676.93
+

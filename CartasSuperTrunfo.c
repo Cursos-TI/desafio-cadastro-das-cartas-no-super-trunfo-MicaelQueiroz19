@@ -81,21 +81,56 @@ void consultar_cartas(){
     }
     
 }
+void jogar_cartas(){
+    char primeira_carta[4]; 
+    char segunda_carta[4];
 
+    printf("Vamos começar o jogo!\n");
+    printf("Selecione a primeira carta (Ex: A01): ");
+    scanf("%s", primeira_carta);
+    printf("Selecione a segunda carta (Ex: B01): ");
+    scanf("%s", segunda_carta);
+
+    #define MAX_LINHA 100
+    char busca[MAX_LINHA];
+    char linha[MAX_LINHA];
+
+    FILE *arquivo = fopen("dados.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
+    }
+    sprintf(busca, "Carta: %s", primeira_carta);
+    // Contador de linhas
+    int linha_num = 0;
+    // Procura a carta no .txt.
+    while (fgets(linha, MAX_LINHA, arquivo)) {
+        linha_num++; // Incrementa o número da linha a cada iteração
+        if (strstr(linha, busca) != NULL) {
+            printf("Carta encontrada na linha %d: %s", linha_num, linha);
+        }
+
+    }
+
+    fclose(arquivo);
+
+
+}
 
 int main() {
     char escolha[20];
 
     printf("Bem Vindo ao Jogo Super Trunfo (Tema: Paises)\n");
-    printf("O que deseja fazer com as Cartas? (Consultar/Cadastrar):");
+    printf("O que deseja fazer com as Cartas? (Jogar/Consultar/Cadastrar):");
     scanf("%s", escolha);
 
-    if (strcmp(escolha, "Cadastrar") == 0){
+    if (strcmp(escolha, "Jogar") == 0){
+        jogar_cartas();
+    } else if (strcmp(escolha, "Cadastrar") == 0){
         cadastrar_cartas();
     } else if (strcmp(escolha, "Consultar") == 0){
         consultar_cartas();
     } else {
-        printf("Opção inválida! Reinicie o Jogo e escolha entre 'Cadastrar' ou 'Consultar'.\n");
+        printf("Opção inválida! Reinicie o Jogo e escolha entre 'Jogar', 'Cadastrar' ou 'Consultar'.\n");
     }
 
 
