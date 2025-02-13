@@ -74,6 +74,7 @@ fclose(arquivo);
 // Exiba os valores inseridos para cada atributo da cidade, um por linha.
 
 void consultarCartas(){
+    char codigoCidade[4] = "H04";
     
     FILE *arquivo = fopen("dados.txt", "r");
     if (arquivo == NULL) {
@@ -82,7 +83,11 @@ void consultarCartas(){
 
     char linha[100];
     while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        printf("%s",linha);
+        if (strcmp(linha, codigoCidade) == 0) {
+            printf("AA:%s", linha);
+        }
+        
+        
     }
     
 
