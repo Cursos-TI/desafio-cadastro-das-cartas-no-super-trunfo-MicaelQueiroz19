@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 // Desafio Super Trunfo - Países
 // Tema 1 - Cadastro das Cartas
@@ -70,8 +71,12 @@ fclose(arquivo);}
 // Exiba os valores inseridos para cada atributo da cidade, um por linha.
 
 void consultarCartas(){
-    char codigoCidade1[4] = "H01";
-    char estado1[20], nomeCidade1[20], populacao1[20], pontosturisticos1[20], area1[20], pib1[20];
+    char codigoCidade1[4];
+    char estado1[20], nomeCidade1[20], populacaox1[20], pontosturisticosx1[20], areax1[20], pibx1[20];
+    int populacao1, pontosturisticos1;
+    float area1, pib1;
+    printf("Digite o código da primeira carta: ");
+    scanf("%3s", codigoCidade1);
 
     FILE *arquivo = fopen("dados.txt", "r"); // Abre arquivo dados.txt
     if (arquivo == NULL) {
@@ -79,75 +84,64 @@ void consultarCartas(){
     }
 
     char linha[100];
-    int nLinha = 0;
+    int nLinha = 0, encontrou = 0;
     while (fgets(linha, sizeof(linha), arquivo) != NULL) { // Procura a carta1 no arquivo dados.txt
-        if (strstr(linha, codigoCidade1) != NULL){
-            strcpy(codigoCidade1, linha);
+        linha[strcspn(linha, "\n")] = 0; // Remove quebra de linha(\n) da variável
+        if (strcmp(linha, codigoCidade1) == 0){ // compara o resultado da linha do .txt com a variavel codigoCarta1
+            strcpy(codigoCidade1, linha); // Converte a variável localizada no .txt na variável codigoCarta1
+            encontrou = 1; // 1 == informação localizada.
             break;
         }
+        nLinha++;
+    }
+    if (encontrou == 0){ // Se Carta1 não localizada, fecha o arquivo dados.txt
+        printf("Código não localizado.\n");
+        fclose(arquivo); //
     }
     rewind(arquivo);
     int contador = 0;    
     while (fgets(linha, sizeof(linha), arquivo) != NULL){ // Procura demais informações ref a carta1 em dados.txt
-        if (contador == nLinha){
+        if (contador == nLinha + 1){
             strcpy(estado1, linha);
-        } else if (contador == nLinha + 1){
+            estado1[strcspn(estado1, "\n")] = 0; // Remove quebra de linha
+        } else if(contador == nLinha + 2){
             strcpy(nomeCidade1, linha);
-        } else if (contador == nLinha + 2){
-            strcpy(populacao1, linha);
-        } else if (contador == nLinha + 3){
-            strcpy(area1, linha);
-        } else if (contador == nLinha + 4){
-            strcpy(pib1, linha);
-        } else if (contador == nLinha + 5){
-            strcpy(pontosturisticos1, linha);
-        }
-        int populacao1 = populacao1;
-        float area1 = area1;
-        float pib1 = pib1;
+            nomeCidade1[strcspn(nomeCidade1, "\n")] = 0;
+        } else if(contador == nLinha + 3){
+            strcpy(populacaox1, linha);
+            populacao1 = atoi(populacaox1); // Converte a variável de String para Int
+        } else if(contador == nLinha + 4){
+            strcpy(areax1, linha);
+            area1 = atof(areax1); // Converte a variável de String para Int
+        } else if(contador == nLinha + 5){
+            strcpy(pibx1, linha);
+            pib1 = atof(pibx1); // Converte a variável de String para Int
+        } else if(contador == nLinha + 6){
+            strcpy(pontosturisticosx1, linha);
+            pontosturisticos1 = atoi(pontosturisticosx1); // Converte a variável de String para Int
+        } 
         contador++;
     }
 
+    printf("Código da Cidade: %s\n", codigoCidade1);
+    printf("Estado: %s\n", estado1);
+    printf("Nome da Cidade: %s\n", nomeCidade1);
+    printf("População: %d\n", populacao1);
+    printf("Área em km²: %.2f\n", area1);
+    printf("PIB: %.2f\n", pib1);
+    printf("Número de pontos turísticos: %d\n", pontosturisticos1);
+    
 
-
-    char codigoCidade2[4] = "H02";
-    char estado2[20], nomeCidade2[20], populacao2[20], pontosturisticos2[20], area2[20], pib2[20];  
-
-    nLinha = 0;
-    while (fgets(linha, sizeof(linha), arquivo) != NULL) { // Procura a carta2 no arquivo dados.txt
-        if (strstr(linha, codigoCidade2) != NULL){
-            strcpy(codigoCidade2, linha);
-            break;
-        }
-    }
-    rewind(arquivo);
-    contador = 0;    
-    while (fgets(linha, sizeof(linha), arquivo) != NULL){ // Procura demais informações ref a carta2 em dados.txt
-        if (contador == nLinha){
-            strcpy(estado2, linha);
-        } else if (contador == nLinha + 1){
-            strcpy(nomeCidade2, linha);
-        } else if (contador == nLinha + 2){
-            strcpy(populacao2, linha);
-        } else if (contador == nLinha + 3){
-            strcpy(area2, linha);
-        } else if (contador == nLinha + 4){
-            strcpy(pib2, linha);
-        } else if (contador == nLinha + 5){
-            strcpy(pontosturisticos2, linha);}
-        int populacao2 = populacao2;
-        float area2 = area2;
-        float pib2 = pib2;
-        contador++;
-    }
 
 }
 
 
 int main() {
 
-    //cadastrarCartas();
-    consultarCartas();
+    cadastrarCartas();
+    //consultarCartas();
+
+
     
 }
 
