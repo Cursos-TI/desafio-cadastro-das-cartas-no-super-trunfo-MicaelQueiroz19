@@ -1,5 +1,15 @@
 #include <stdio.h>
 
+/* O Código abaixo é referente ao jogo super trunfo. 
+- O usuário deve escolher uma letra para o estado entre 'A' e 'H'.
+- Definir o código, usando a letra escolhida e um número entre '01' e '04'.
+- Preencher as demais informações de acordo com o tipo da váriavel definida. (O Nome Cidade não pode ter espaço, use "_").
+
+Após, preenchida as informações, o jogo exibe as 2 cartas cadastradas e calcula a densidade populacional, pib per capita e
+o super poder. Assim, ele compara as variáveis númericas e apresenta a carta vencedora, considerando o maior número como vencedor,
+exceto na variável densidade.
+*/
+
 int main(){
     // Define as variáveis da carta1
     char estado1[20], codigo1[20], nomeCidade1[20];
@@ -11,10 +21,15 @@ int main(){
     char estado2[20], codigo2[20], nomeCidade2[20];
     int nPontosTuristicos2;
     float area2, pib2, densidade2, pibperCapita2, superPoder2;
-    unsigned long int populacao2;  
+    unsigned long int populacao2;
+
+    // Define variáveis do resultado da comparação
+    int nPontosTuristicos;
+    float area, pib, densidade, pibperCapita, superPoder;
+    unsigned long int populacao;
 
     // Cadastra a carta1
-    printf("Bem Vindo ao Jogo SuperTrunfo.\n");
+    printf("Bem Vindo ao Jogo SuperTrunfo.\n\n");
     printf("Vamos começar com a Carta1\n");
     printf("Digite o Estado: ");
     scanf("%s", estado1);
@@ -88,10 +103,6 @@ int main(){
 
 
     // Comparação de Cartas
-    int nPontosTuristicos;
-    float area, pib, densidade, pibperCapita, superPoder;
-    unsigned long int populacao;
-
     populacao = populacao1 > populacao2;
     area = area1 > area2;
     pib = pib1 > pib2;
@@ -100,6 +111,8 @@ int main(){
     pibperCapita = pibperCapita1 > pibperCapita2;
     superPoder = superPoder1 > superPoder2;
 
+    // Calcula e exibe Carta 1 ou Carta 2 vencedora a aponta 1-Verdadeiro para a primeira e 0-Falso para a segunda
+    // Foi utilizado apenas operadores relacionais para substituir a utilização do if na definição da "Carta 2"
     printf("Comparação de Cartas:\n");
     printf("População: Carta %lu venceu (%d)\n", ((populacao + 3) % 2 + 1), (populacao1 > populacao2));
     printf("Área: Carta %d venceu (%d)\n", (((int)area + 3) % 2 + 1), (area1 > area2));
@@ -108,7 +121,5 @@ int main(){
     printf("Densidade Populacional: Carta %d venceu (%d)\n", (((int)densidade + 3) % 2 + 1), (densidade1 < densidade2));
     printf("PIB per Capita: Carta %d venceu (%d)\n", (((int)pibperCapita + 3) % 2 + 1), (pibperCapita1 > pibperCapita2));
     printf("Super Poder: Carta %d venceu (%d)\n", (((int)superPoder + 3) % 2 + 1), (superPoder1 > superPoder2));
- 
-
 
 }
