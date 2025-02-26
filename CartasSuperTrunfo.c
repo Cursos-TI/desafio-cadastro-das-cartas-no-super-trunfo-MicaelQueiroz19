@@ -46,7 +46,7 @@ int main(){
     printf("Digite o Número de Pontos Turísticos: ");
     scanf("%d", &nPontosTuristicos1);
     //Calcula densidade e PIB per Capita da Carta1
-    densidade1 = area1 / populacao1;
+    densidade1 = populacao1 / area1;
     pibperCapita1 = pib1 / populacao1;
     //Calcular Super Poder da Carta1
     superPoder1 = (populacao1 + area1 + pib1 + nPontosTuristicos1 + pibperCapita1 + (-densidade1));
@@ -69,7 +69,7 @@ int main(){
     printf("Digite o Número de Pontos Turísticos: ");
     scanf("%d", &nPontosTuristicos2);
     //Calcula densidade e PIB per Capita da Carta2
-    densidade2 = area2 / populacao2;
+    densidade2 = populacao2 / area2;
     pibperCapita2 = pib2 / populacao2;
     //Calcular Super Poder da Carta2
     superPoder2 = (populacao2 + area2 + pib2 + nPontosTuristicos2 + pibperCapita2 + (-densidade2));
